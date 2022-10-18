@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# -----------------------------------------------------------------------------
+# CONFIG
+# -----------------------------------------------------------------------------
+
+__VERSION="0.1"
+__NAME="Faker in Bash"
+__FILE=$(basename "$0")
+readonly __VERSION __FILE __NAME
+
+o_locale=en
+
+# -----------------------------------------------------------------------------
+# PRIVATE interfaces
+# -----------------------------------------------------------------------------
+
+function _firstName {
+  readarray -t firstnames < locale/"$o_locale"/first-name.txt
+  rand=$(perl -e "print int(rand(${#firstnames[@]}))")
+  echo "${firstnames["$rand"]}"
+}
+
+function _lastName {
+  readarray -t lastnames < locale/"$o_locale"/last-name.txt
+  rand=$(perl -e "print int(rand(${#lastnames[@]}))")
+  echo "${lastnames["$rand"]}"
+}
+
+function _email {
+  readarray -t emails < locale/"$o_locale"/email.txt
+  rand=$(perl -e "print int(rand(${#emails[@]}))")
+  prefix=$(_firstName)$(_lastName)
+  echo "${prefix,,}@${emails["$rand"]}"
+}
+
+# -----------------------------------------------------------------------------
+# PUBLIC interfaces
+# -----------------------------------------------------------------------------
+
+function name { # Generate a fake first + last name
+  echo "$(_firstName)" "$(_lastName)"
+}
+
+function email { # Generate a fake first + last name
+  _email
+}
+
+# -----------------------------------------------------------------------------
+
+function _parseOptions {
+  while [[ $# -ge 1 ]]; do
+    case $1 in
+
+      --locale)
+        shift
+        o_locale=$1
+        shift
+        continue
+        ;;
+
+    esac
+
+    if [[ $# -gt 0 ]]; then
+      shift
+    fi
+  done
+}
+
+function help { # Display this helpful help information
+  local functions
+  functions=$(grep -E "^function [^_]*?$" "$0" | sed -E "s/ *{ *# */#/g" | column -t -s '#' | sed -E "s/^function /   /g" | sort)
+  echo "$__NAME v $__VERSION"
+  echo "Usage: $__FILE <task> [args]"
+  echo ""
+  echo "Tasks:"
+  echo "$functions"
+  echo ""
+  echo "Options:"
+  echo "   --locale     en"
+  echo ""
+}
+
+"${@:-help}"
