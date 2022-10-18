@@ -1,3 +1,9 @@
 gmail.com
 yahoo.com
 hotmail.com
+example.org
+example.com
+example.net
+outlook.com
+mail.com
+icloud.com

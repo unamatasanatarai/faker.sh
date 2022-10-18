@@ -17,34 +17,61 @@ o_locale=en
 # PRIVATE interfaces
 # -----------------------------------------------------------------------------
 
-function _firstName {
-  readarray -t firstnames < locale/"$o_locale"/first-name.txt
-  rand=$(perl -e "print int(rand(${#firstnames[@]}))")
-  echo "${firstnames["$rand"]}"
+function _lorem {
+  readarray -t ents < locale/"$o_locale"/lorem.txt
+  declare -a words
+  for ((i = 0; i < ${1:-1}; i++)); do
+    rand=$(perl -e "print int(rand(${#ents[@]}))")
+    words+=("${ents["$rand"]}")
+  done
+  echo "${words[@]}"
 }
 
-function _lastName {
-  readarray -t lastnames < locale/"$o_locale"/last-name.txt
-  rand=$(perl -e "print int(rand(${#lastnames[@]}))")
-  echo "${lastnames["$rand"]}"
+function _firstname {
+  readarray -t ents < locale/"$o_locale"/first-name.txt
+  rand=$(perl -e "print int(rand(${#ents[@]}))")
+  echo "${ents["$rand"]}"
+}
+
+function _lastname {
+  readarray -t ents < locale/"$o_locale"/last-name.txt
+  rand=$(perl -e "print int(rand(${#ents[@]}))")
+  echo "${ents["$rand"]}"
 }
 
 function _email {
-  readarray -t emails < locale/"$o_locale"/email.txt
-  rand=$(perl -e "print int(rand(${#emails[@]}))")
-  prefix=$(_firstName)$(_lastName)
-  echo "${prefix,,}@${emails["$rand"]}"
+  readarray -t ents < locale/"$o_locale"/email.txt
+  rand=$(perl -e "print int(rand(${#ents[@]}))")
+  prefix=$(_firstname)$(_lastname)
+  echo "${prefix,,}@${ents["$rand"]}"
 }
 
 # -----------------------------------------------------------------------------
 # PUBLIC interfaces
 # -----------------------------------------------------------------------------
 
-function name { # Generate a fake first + last name
-  echo "$(_firstName)" "$(_lastName)"
+function lorem { # Loremipsum run command: lorem 5 - to get 5 words
+  local cnt
+  if [[ ${1:-1} =~ ^[0-9]+ ]]; then
+    cnt="${1:-1}"
+  fi
+
+  _lorem "$cnt"
 }
 
-function email { # Generate a fake first + last name
+function name { # Firstname + Lastname
+  echo "$(_firstname)" "$(_lastname)"
+}
+
+function firstname { # Firstname
+  _firstname
+}
+
+function lastname { # Firstname
+  _lastname
+}
+
+function email { # E-Mail address
   _email
 }
 
@@ -82,5 +109,7 @@ function help { # Display this helpful help information
   echo "   --locale     en"
   echo ""
 }
+
+_parseOptions "$@"
 
 "${@:-help}"
