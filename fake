@@ -21,11 +21,13 @@ o_locale=en
 function _lorem {
   readarray -t ents < "$__DIR/locale/$o_locale"/lorem.txt
   declare -a words
-  for ((i = 0; i < ${1:-1}; i++)); do
+  i=0
+  while [ "$i" -lt "${1:-1}" ]; do
     rand=$(perl -e "print int(rand(${#ents[@]}))")
     words+=("${ents["$rand"]}")
+    ((i += 1))
   done
-  echo "${words[@]}"
+  printf "%s" "${words[*]}"
 }
 
 function _firstname {
