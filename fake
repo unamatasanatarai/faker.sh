@@ -9,7 +9,8 @@ set -euo pipefail
 __VERSION="0.1"
 __NAME="Faker in Bash"
 __FILE=$(basename "$0")
-readonly __VERSION __FILE __NAME
+__DIR=$(dirname "$0")
+readonly __VERSION __FILE __NAME __DIR
 
 o_locale=en
 
@@ -18,7 +19,7 @@ o_locale=en
 # -----------------------------------------------------------------------------
 
 function _lorem {
-  readarray -t ents < locale/"$o_locale"/lorem.txt
+  readarray -t ents < "$__DIR/locale/$o_locale"/lorem.txt
   declare -a words
   for ((i = 0; i < ${1:-1}; i++)); do
     rand=$(perl -e "print int(rand(${#ents[@]}))")
@@ -28,19 +29,19 @@ function _lorem {
 }
 
 function _firstname {
-  readarray -t ents < locale/"$o_locale"/first-name.txt
+  readarray -t ents < "$__DIR/locale/$o_locale"/first-name.txt
   rand=$(perl -e "print int(rand(${#ents[@]}))")
   echo "${ents["$rand"]}"
 }
 
 function _lastname {
-  readarray -t ents < locale/"$o_locale"/last-name.txt
+  readarray -t ents < "$__DIR/locale/$o_locale"/last-name.txt
   rand=$(perl -e "print int(rand(${#ents[@]}))")
   echo "${ents["$rand"]}"
 }
 
 function _email {
-  readarray -t ents < locale/"$o_locale"/email.txt
+  readarray -t ents < "$__DIR/locale/$o_locale"/email.txt
   rand=$(perl -e "print int(rand(${#ents[@]}))")
   prefix=$(_firstname)$(_lastname)
   echo "${prefix,,}@${ents["$rand"]}"
