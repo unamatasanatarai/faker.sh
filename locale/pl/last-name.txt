@@ -691,8 +691,6 @@ Ziętek
 Zwoliński
 Zych
 Zygmunt
-];
-exportdefault[
 Łapiński
 Łuczak
 Łukasiewicz
