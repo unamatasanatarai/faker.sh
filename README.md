@@ -20,39 +20,48 @@ Run the `fake` script with a task name:
 
 ### Tasks
 
-| Task | Description | Options |
-| :--- | :--- | :--- |
-| `person` | Full name | `male`, `female` |
-| `firstname` | First name | `male`, `female` |
-| `lastname` | Last name | `male`, `female` |
-| `email` | E-mail address | `male`, `female` |
-| `uuid` | UUID v4 | |
-| `country` | Country name | |
-| `country_abbr`| ISO Abbreviation | |
-| `city` | City name | |
-| `street_name` | Street name | |
-| `number` | Street number | |
-| `job_title` | Job title | |
-| `company` | Company name | |
-| `url` | Company URL | |
-| `date` | Date (YYYY-MM-DD)| `before`, `after` |
-| `time` | Time (HH:MM:SS) | |
-| `lorem` | Lorem Ipsum | `[count]` |
+| Task | Description | Example Command | Example Output |
+| :--- | :--- | :--- | :--- |
+| `person` | Full name | `./fake person` | `Bernie Schamberger` |
+| `firstname` | First name | `./fake firstname` | `Kenya` |
+| `lastname` | Last name | `./fake lastname` | `Bruen` |
+| `email` | E-mail address | `./fake email` | `aglae.brown@outlook.com` |
+| `uuid` | UUID v4 | `./fake uuid` | `2a876f72-52b7-495f-8c02-841e21582154` |
+| `country` | Country name | `./fake country` | `Egypt` |
+| `country_abbr`| ISO Abbreviation | `./fake country_abbr`| `VN` |
+| `city` | City name | `./fake city` | `Kitchener` |
+| `street_name` | Street name | `./fake street_name` | `Water Street` |
+| `number` | Random number | `./fake number 1 100` | `85` |
+| `postcode` | Postcode | `./fake postcode` | `61717` |
+| `job_title` | Job title | `./fake job_title` | `Web Developer` |
+| `company` | Company name | `./fake company` | `Davis Crest` |
+| `url` | Company URL | `./fake url` | `https://www.rolfson.com` |
+| `date` | Date (YYYY-MM-DD)| `./fake date after` | `2027-06-08` |
+| `time` | Time (HH:MM:SS) | `./fake time` | `14:30:05` |
+| `lorem` | Lorem Ipsum | `./fake lorem 3` | `odio et carbo` |
 
-### Examples
+### Advanced Examples
 
 ```bash
+# Generate a random male person
+$ ./fake person male
+Caleb Schroeder
+
 # Generate a random female person
-./fake person female
+$ ./fake person female
+Mia Kihn
 
-# Generate a UUID
-./fake uuid
+# Change locale to Polish
+$ ./fake person --locale pl
+Antoni Nowak
 
-# Generate a Polish name
-./fake person --locale pl
+# Specific number range
+$ ./fake number 100 200
+142
 
-# Generate 10 words of lorem ipsum
-./fake lorem 10
+# Date before a certain range (randomly picks from history)
+$ ./fake date before
+2011-05-03
 ```
 
 ## Installation
