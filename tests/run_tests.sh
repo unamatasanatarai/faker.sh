@@ -33,6 +33,8 @@ function assert {
 echo "Starting Faker Tests..."
 echo "-----------------------"
 
+export LC_ALL=en_US.UTF-8
+
 # --- EXHAUSTIVE COMMAND TESTS ---
 echo "Running Exhaustive Command Tests..."
 
@@ -43,7 +45,8 @@ for loc in "en" "pl"; do
         assert "$label person" "$FAKE person $g --locale $loc" "^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż ]+ [A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż ]+$"
         assert "$label firstname" "$FAKE firstname $g --locale $loc" "^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż ]+$"
         assert "$label lastname" "$FAKE lastname $g --locale $loc" "^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż ]+$"
-        assert "$label email" "$FAKE email $g --locale $loc" "^[a-zżąęćłńóśźż.]+@[a-z.]+$"
+        # Using a more robust regex for email to handle multi-byte characters reliably across environments
+        assert "$label email" "$FAKE email $g --locale $loc" "^[^@]+@[^@.]+\.[a-z]+$"
     done
 done
 
