@@ -110,6 +110,54 @@ else
     ((FAILED++))
 fi
 
+# SYSTEM TESTS (Help/Invalid)
+assert "Help command" "$FAKE help" "Faker in Bash"
+assert "No args (Help)" "$FAKE" "Faker in Bash"
+assert "Invalid task (Help)" "$FAKE invalid_task_name" "Faker in Bash"
+
+# UTILITY EDGE CASES
+echo "Running Utility Edge Case Tests..."
+
+# Mocking environment for internal tests
+source "$__DIR/../lib/utils.sh"
+o_locale="en"
+__DIR="$__DIR/.."
+
+# Test _random with max <= 0
+_random 0
+if [[ $_RET -eq 0 ]]; then
+    echo "Test: _random 0... PASSED"
+    ((PASSED++))
+else
+    echo "Test: _random 0... FAILED"
+    ((FAILED++))
+fi
+
+# Test _pick with non-existent file
+_pick "/tmp/non_existent_file_12345"
+if [[ $? -eq 1 && "$_RET" == "" ]]; then
+    echo "Test: _pick non-existent... PASSED"
+    ((PASSED++))
+else
+    echo "Test: _pick non-existent... FAILED"
+    ((FAILED++))
+fi
+
+# Test _pick with empty file
+touch /tmp/empty_faker_test
+_pick "/tmp/empty_faker_test"
+if [[ $? -eq 1 && "$_RET" == "" ]]; then
+    echo "Test: _pick empty file... PASSED"
+    ((PASSED++))
+else
+    echo "Test: _pick empty file... FAILED"
+    ((FAILED++))
+fi
+rm /tmp/empty_faker_test
+
+# Test time with unknown arg
+assert "Time unknown arg" "$FAKE time unknown" "^[0-9]{2}:[0-9]{2}:[0-9]{2}$"
+
 echo "-----------------------"
 echo "Summary: $PASSED passed, $FAILED failed"
 
