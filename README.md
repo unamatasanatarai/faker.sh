@@ -6,7 +6,7 @@ A lightweight, high-performance data generator written in 100% pure Bash. No for
 
 - **Pure Bash**: Extremely fast, stays within a single process.
 - **No Dependencies**: Works on any system with Bash 4.4+.
-- **Localization**: Supports multiple locales (currently `en` and `pl`).
+- **Localization**: Supports multiple locales (`en`, `pl`, `de`).
 - **Extensible**: Easy to add new data types and locales.
 - **Gender Specific**: Support for male/female names.
 
@@ -115,6 +115,8 @@ $ ./fake lorem 20
 $ ./fake person --seed 12345
 # Generate bulk data with specific options
 $ ./fake email male --count 10 --locale pl
+# Generate a random German job title
+$ ./fake job_title --locale de
 ```
 
 ## Performance & Architecture
@@ -140,4 +142,4 @@ The script uses heredocs for internal function documentation. You can read the s
 
 ## License
 
-MIT
+[MIT](LICENSE) ([tldr](https://tldrlegal.com/license/mit-license))
