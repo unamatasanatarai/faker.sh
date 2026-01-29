@@ -51,6 +51,16 @@ Caleb Schroeder
 $ ./fake person female
 Mia Kihn
 
+# Bulk generation (Count)
+$ ./fake person --count 3
+Antoni Nowak
+Jeremi Gierczak
+Maja Wiśniewska
+
+# Reproducible results (Seed)
+$ ./fake uuid --seed 42
+1835d913-3c51-4897-9d37-290156357be6
+
 # Change locale to Polish
 $ ./fake person --locale pl
 Antoni Nowak
@@ -58,11 +68,14 @@ Antoni Nowak
 # Specific number range
 $ ./fake number 100 200
 142
-
-# Date before a certain range (randomly picks from history)
-$ ./fake date before
-2011-05-03
 ```
+
+## Performance & Architecture
+
+- **Modularity**: Code is split into `lib/` providers (person, location, etc.) for maintainability.
+- **Caching**: File contents are cached in memory during execution to speed up bulk generation.
+- **Pure Bash**: No subshells, no forks, no external dependencies.
+- **Randomness**: Uses cryptographically secure `SRANDOM` when available, or a high-entropy 30-bit `RANDOM` fallback.
 
 ## Installation
 
