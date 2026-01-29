@@ -35,17 +35,17 @@ echo "Starting Faker Matrix Tests..."
 echo "------------------------------"
 
 # 1. CORE MATRIX: LOCALE X COMMAND X ARGUMENT
-locales=("en" "pl")
+locales=("en" "pl" "de")
 
 # Simple tasks (Fixed regex)
 simple_tasks=(
-    "country:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻż -]+$"
+    "country:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻżäöüÄÖÜß .-]+$"
     "country_abbr:^[A-Z]{2,3}$"
-    "city:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻż ]+$"
-    "street_name:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻż0-9. ]+$"
+    "city:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻżäöüÄÖÜß .-]+$"
+    "street_name:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻżäöüÄÖÜß0-9. -]+$"
     "postcode:^[0-9-]+$"
-    "job_title:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻż ]+$"
-    "company:^[A-Z][A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻż ]+.*$"
+    "job_title:^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻżäöüÄÖÜß .-]+$"
+    "company:^[A-Z][A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŻżäöüÄÖÜß .-]+.*$"
     "url:^https?://.*$"
     "uuid:^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
     "phone_number:^\+[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}$"
@@ -67,7 +67,7 @@ for loc in "${locales[@]}"; do
     
     # Run gendered tasks
     for task in "${gender_tasks[@]}"; do
-        regex="^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż .]+$"
+        regex="^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹżäöüÄÖÜß .]+$"
         [[ "$task" == "email" ]] && regex="^[^@]+@[^@.]+\.[a-z]+$"
         
         for g in "${genders[@]}"; do
