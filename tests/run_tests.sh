@@ -158,6 +158,62 @@ rm /tmp/empty_faker_test
 # Test time with unknown arg
 assert "Time unknown arg" "$FAKE time unknown" "^[0-9]{2}:[0-9]{2}:[0-9]{2}$"
 
+# EXTREME TESTS
+echo "Running Extreme Tests..."
+
+# 1. UUID Uniqueness in batch
+echo -n "Test: UUID Uniqueness (100 items)... "
+uuid_check=$( $FAKE uuid --count 100 | sort | uniq | wc -l )
+if [[ $uuid_check -eq 100 ]]; then
+    echo "PASSED"
+    ((PASSED++))
+else
+    echo "FAILED (Only $uuid_check unique values)"
+    ((FAILED++))
+fi
+
+# 2. Deep Combinatorial Flags
+echo -n "Test: Deep Combinatorial (pl male --count 5 --seed 1)... "
+combo_out=$( $FAKE person male --locale pl --count 5 --seed 1 )
+combo_cnt=$( echo "$combo_out" | grep -cE "^[A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż ]+ [A-Za-zŻżĄąĆćĘęŁłŃńÓóŚśŹźŹż ]+$" )
+if [[ $combo_cnt -eq 5 ]]; then
+    echo "PASSED"
+    ((PASSED++))
+else
+    echo "FAILED (Got $combo_cnt/5 valid lines)"
+    ((FAILED++))
+fi
+
+# 3. Stress Test (Performance & Integrity)
+echo -n "Test: Stress Test (Count 1000)... "
+stress_check=$( $FAKE number --count 1000 | grep -E "^[0-9]+$" | wc -l )
+if [[ $stress_check -eq 1000 ]]; then
+    echo "PASSED"
+    ((PASSED++))
+else
+    echo "FAILED ($stress_check lines valid)"
+    ((FAILED++))
+fi
+
+# 4. Internal Cache Audit (_pick)
+echo -n "Test: Internal Cache Audit... "
+# Trigger caching
+_pick "$__DIR/locale/en/city.txt"
+city_cache_var="__C_${__DIR//[^a-zA-Z0-9]/_}_locale_en_city_txt"
+if [[ -n "${!city_cache_var}" ]]; then
+    echo "PASSED"
+    ((PASSED++))
+else
+    echo "FAILED (Cache variable not found)"
+    ((FAILED++))
+fi
+
+# 5. Strict Pattern: Phone Number
+assert "Strict Phone Validation" "$FAKE phone_number" "^\+[0-9]{2} [0-9]{3} [0-9]{3} [0-9]{3}$"
+
+# 6. Strict Pattern: Postcode (en)
+assert "Strict Postcode Validation (en)" "$FAKE postcode --locale en" "^[0-9]{5}$"
+
 echo "-----------------------"
 echo "Summary: $PASSED passed, $FAILED failed"
 
