@@ -111,7 +111,7 @@ set -- "${_ARGS[@]}"
 
 cmd="${1:-help}"
 
-if [[ "$(type -t "$cmd")" == "function" && ! "$cmd" =~ ^_ ]]; then
+if declare -F "$cmd" >/dev/null && [[ ! "$cmd" =~ ^_ ]]; then
     shift
     # Bulk generation support
     for (( i=0; i<o_count; i++ )); do

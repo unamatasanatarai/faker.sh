@@ -70,15 +70,15 @@ Generates random words (lorem ipsum).
 Usage: fake lorem [count]
 DOC
     local cnt="${1:-1}"
-    local ents
-    readarray -t ents < "$__DIR/locale/$o_locale/lorem.txt"
-    local count=${#ents[@]}
     local words=()
-    local i r
+    local i
+    local old_direct=$_DIRECT_CALL
+    _DIRECT_CALL=0
     for (( i=0; i<cnt; i++ )); do
-        _random "$count"
-        words+=("${ents[_RET]}")
+        _pick "$__DIR/locale/$o_locale/lorem.txt"
+        words+=("$_RET")
     done
     _RET="${words[*]}"
+    _DIRECT_CALL=$old_direct
     [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
 }
