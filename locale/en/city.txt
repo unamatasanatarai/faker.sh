@@ -1,0 +1,416 @@
+New York
+Los Angeles
+Chicago
+Houston
+Phoenix
+Philadelphia
+San Antonio
+San Diego
+Dallas
+San Jose
+Austin
+Jacksonville
+Fort Worth
+Columbus
+Charlotte
+San Francisco
+Indianapolis
+Seattle
+Denver
+Washington
+Boston
+El Paso
+Nashville
+Detroit
+Oklahoma City
+Portland
+Las Vegas
+Memphis
+Louisville
+Baltimore
+Milwaukee
+Albuquerque
+Tucson
+Fresno
+Sacramento
+Mesa
+Kansas City
+Atlanta
+Long Beach
+Colorado Springs
+Raleigh
+Miami
+Virginia Beach
+Omaha
+Oakland
+Minneapolis
+Tulsa
+Arlington
+New Orleans
+Wichita
+London
+Manchester
+Birmingham
+Leeds
+Glasgow
+Southampton
+Liverpool
+Newcastle
+Nottingham
+Sheffield
+Bristol
+Belfast
+Leicester
+Edinburgh
+Brighton
+Bournemouth
+Cardiff
+Middlesbrough
+Stoke-on-Trent
+Coventry
+Sydney
+Melbourne
+Brisbane
+Perth
+Adelaide
+Gold Coast
+Canberra
+Newcastle
+Wollongong
+Sunshine Coast
+Hobart
+Geelong
+Townsville
+Cairns
+Darwin
+Toowoomba
+Ballarat
+Bendigo
+Albury-Wodonga
+Launceston
+Toronto
+Montreal
+Vancouver
+Calgary
+Edmonton
+Ottawa
+Winnipeg
+Quebec City
+Hamilton
+Kitchener
+London
+Victoria
+Halifax
+Oshawa
+Windsor
+Saskatoon
+Regina
+St. John's
+Kelowna
+Barrie
+Sherbrooke
+Guelph
+Abbotsford
+Kingston
+Sudbury
+Trois-Rivieres
+Saguenay
+Moncton
+Saint John
+Peterborough
+Lethbridge
+Nanaimo
+Kamloops
+Belleville
+Chatham-Kent
+Fredericton
+Red Deer
+Sault Ste. Marie
+Medicine Hat
+Thunder Bay
+Prince George
+North Bay
+Cornwall
+Brandon
+Drummondville
+Saint-Hyacinthe
+Shawinigan
+Granby
+Rimouski
+Sorel-Tracy
+Saint-Jerome
+Granby
+Victoriaville
+Saint-Jean-sur-Richelieu
+Grande-Prairie
+Saint-Georges
+Salaberry-de-Valleyfield
+Albany
+Allentown
+Ann Arbor
+Asheville
+Athens
+Atlantic City
+Augusta
+Aurora
+Bakersfield
+Baton Rouge
+Beaumont
+Berkeley
+Billings
+Biloxi
+Binghamton
+Birmingham
+Bismarck
+Bloomington
+Boise
+Boulder
+Bridgeport
+Brownsville
+Buffalo
+Burlington
+Canton
+Cape Coral
+Casper
+Cedar Rapids
+Champaign
+Charleston
+Charleston
+Chattanooga
+Chesapeake
+Cheyenne
+Chico
+Chula Vista
+Cincinnati
+Clearwater
+Cleveland
+College Station
+Columbia
+Columbia
+Columbus
+Concord
+Coral Springs
+Corpus Christi
+Dayton
+Denton
+Des Moines
+Dover
+Durham
+Elizabeth
+Erie
+Escondido
+Eugene
+Evansville
+Everett
+Fairbanks
+Fairfield
+Fargo
+Fayetteville
+Fayetteville
+Flagstaff
+Flint
+Florence
+Fontana
+Fort Collins
+Fort Lauderdale
+Fort Smith
+Fort Wayne
+Franklin
+Frederick
+Fullerton
+Gainesville
+Garden Grove
+Gary
+Gastonia
+Gilbert
+Glendale
+Glendale
+Grand Forks
+Grand Rapids
+Greeley
+Green Bay
+Greensboro
+Greenville
+Gulfport
+Hagerstown
+Hartford
+Hayward
+Henderson
+Hialeah
+High Point
+Hollywood
+Honolulu
+Huntington
+Huntsville
+Idaho Falls
+Independence
+Inglewood
+Irvine
+Irving
+Jackson
+Jackson
+Janesville
+Jefferson City
+Jersey City
+Johnson City
+Joliet
+Joplin
+Juneau
+Kalamazoo
+Kennewick
+Kenosha
+Killeen
+Knoxville
+Lafayette
+Lafayette
+Lake Charles
+Lakeland
+Lakewood
+Lakewood
+Lancaster
+Lansing
+Laredo
+Lawrence
+Lawton
+Lexington
+Lincoln
+Little Rock
+Longview
+Lowell
+Lubbock
+Lynchburg
+Macon
+Madison
+Manchester
+Marietta
+McAllen
+McKinney
+Medford
+Meridian
+Mesquite
+Midland
+Miramar
+Missoula
+Mobile
+Modesto
+Montgomery
+Moreno Valley
+Morgantown
+Murfreesboro
+Muskegon
+Naperville
+Nashua
+New Bedford
+New Haven
+Newport News
+Norfolk
+Norman
+North Las Vegas
+Norwalk
+Oceanside
+Odessa
+Ogden
+Olathe
+Olympia
+Ontario
+Orange
+Orlando
+Overland Park
+Oxnard
+Palm Bay
+Palmdale
+Pasadena
+Pasadena
+Paterson
+Pearland
+Pembroke Pines
+Pensacola
+Peoria
+Plano
+Pomona
+Pompano Beach
+Port St. Lucie
+Providence
+Provo
+Pueblo
+Racine
+Rancho Cucamonga
+Reading
+Redding
+Reno
+Rialto
+Richardson
+Richmond
+Riverside
+Roanoke
+Rochester
+Rochester
+Rockford
+Roseville
+Round Rock
+Salem
+Salinas
+Salt Lake City
+San Bernardino
+San Buenaventura
+Santa Ana
+Santa Barbara
+Santa Clara
+Santa Clarita
+Santa Maria
+Santa Rosa
+Savannah
+Scottsdale
+Scranton
+Shreveport
+Simi Valley
+Sioux Falls
+South Bend
+Spartanburg
+Spokane
+Springfield
+Springfield
+Springfield
+Springfield
+Springfield
+St. Cloud
+St. George
+St. Louis
+St. Paul
+St. Petersburg
+Stamford
+Sterling Heights
+Stockton
+Sunnyvale
+Syracuse
+Tacoma
+Tallahassee
+Tampa
+Tempe
+Thornton
+Thousand Oaks
+Toledo
+Topeka
+Torrance
+Trenton
+Tyler
+Vallejo
+Vancouver
+Victorville
+Visalia
+Waco
+Warren
+Waterbury
+West Covina
+West Jordan
+West Palm Beach
+West Valley City
+Westminster
+Westminster
+White Plains
+Winston-Salem
+Worcester
+Yakima
+Yonkers
+York
+Youngstown

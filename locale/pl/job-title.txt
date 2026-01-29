@@ -1,0 +1,99 @@
+Programista
+Księgowy
+Kierownik Projektu
+Analityk Danych
+Specjalista ds. Marketingu
+Menedżer Produktu
+Pielęgniarka
+Nauczyciel
+Przedstawiciel Handlowy
+Grafik Komputerowy
+Analityk Finansowy
+Kierownik HR
+Inżynier Mechanik
+Inżynier Budownictwa
+Inżynier Elektryk
+Prawnik
+Lekarz
+Farmaceuta
+Konsultant ds. Obsługi Klienta
+Copywriter
+Menedżer Social Media
+Kierownik Operacyjny
+Analityk Biznesowy
+Projektant UX/UI
+Web Developer
+Programista Aplikacji Mobilnych
+Administrator Systemów
+Inżynier Sieciowy
+Tester Oprogramowania
+Analityk Systemowy
+Pracownik Naukowy
+Asystent Zarządu
+Kierownik Biura
+Sprzedawca
+Szef Kuchni
+Kelner
+Kierowca Ciężarówki
+Pracownik Magazynu
+Pracownik Budowlany
+Elektryk
+Hydraulik
+Stolarz
+Spawacz
+Agent Nieruchomości
+Agent Ubezpieczeniowy
+Kasjer Bankowy
+Bankier Inwestycyjny
+Konsultant
+Psycholog
+Socjolog
+Artysta
+Fotograf
+Operator Kamery
+Redaktor
+Producent
+Reżyser
+Nauczyciel Muzyki
+Instruktor Fitness
+Instruktor Jogi
+Dietetyk
+Higienistka Stomatologiczna
+Technik Weterynarii
+Stewardessa
+Pilot
+Agent Biura Podróży
+Organizator Eventów
+Specjalista PR
+Specjalista SEO
+Pisarz Techniczny
+Projektant Instruktażowy
+Bibliotekarz
+Archeolog
+Historyk
+Geolog
+Specjalista ds. Ochrony Środowiska
+Biolog Morski
+Zoolog
+Fizyk
+Chemik
+Matematyk
+Statystyk
+Aktuariusz
+Ekonomista
+Politolog
+Urbanista
+Architekt Krajobrazu
+Projektant Wnętrz
+Projektant Mody
+Jubiler
+Wizażysta
+Fryzjer
+Barber
+Kosmetolog
+Masażysta
+Fizjoterapeuta
+Logopeda
+Audiolog
+Prezenter Radiowy
+Podcaster

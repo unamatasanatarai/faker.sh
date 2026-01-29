@@ -1,0 +1,101 @@
+Software Engineer
+Accountant
+Project Manager
+Data Scientist
+Marketing Specialist
+Product Manager
+Nurse
+Teacher
+Sales Representative
+Graphic Designer
+Financial Analyst
+Human Resources Manager
+Mechanical Engineer
+Civil Engineer
+Electrical Engineer
+Attorney
+Doctor
+Pharmacist
+Customer Service Representative
+Content Writer
+Social Media Manager
+Operations Manager
+Business Analyst
+UX/UI Designer
+Web Developer
+Mobile App Developer
+Systems Administrator
+Network Engineer
+Quality Assurance Engineer
+Data Analyst
+Research Scientist
+Executive Assistant
+Office Manager
+Retail Associate
+Chef
+Waiter/Waitress
+Truck Driver
+Warehouse Worker
+Construction Worker
+Electrician
+Plumber
+Carpenter
+Welder
+Real Estate Agent
+Insurance Agent
+Bank Teller
+Investment Banker
+Consultant
+Psychologist
+Sociologist
+Artist
+Photographer
+Videographer
+Editor
+Producer
+Director
+Music Teacher
+Fitness Instructor
+Yoga Teacher
+Nutritionist
+Dental Hygienist
+Veterinary Technician
+Flight Attendant
+Pilot
+Travel Agent
+Event Planner
+Public Relations Specialist
+Copywriter
+SEO Specialist
+Technical Writer
+Instructional Designer
+Library Assistant
+Archaeologist
+Historian
+Geologist
+Environmental Scientist
+Marine Biologist
+Zoologist
+Physicist
+Chemist
+Mathematician
+Statistician
+Actuary
+Economist
+Political Scientist
+Urban Planner
+Landscape Architect
+Interior Designer
+Fashion Designer
+Jewelry Designer
+Makeup Artist
+Hair Stylist
+Barber
+Esthetician
+Massage Therapist
+Physiotherapy Assistant
+Occupational Therapy Assistant
+Speech-Language Pathologist
+Audiologist
+Radio Host
+Podcaster

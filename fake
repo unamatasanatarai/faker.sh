@@ -1,118 +1,438 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
 # -----------------------------------------------------------------------------
 # CONFIG
 # -----------------------------------------------------------------------------
 
-__VERSION="0.1"
-__NAME="Faker in Bash"
-__FILE=$(basename "$0")
-__DIR=$(dirname "$0")
+__VERSION="1.1"
+__NAME="Faker in Bash (Pure)"
+__FILE="${0##*/}"
+__DIR="${0%/*}"
+[[ "$__DIR" == "$0" ]] && __DIR="."
 readonly __VERSION __FILE __NAME __DIR
 
-o_locale=en
+o_locale="en"
+_RET=""
+_DIRECT_CALL=1
 
 # -----------------------------------------------------------------------------
-# PRIVATE interfaces
+# HELPERS
 # -----------------------------------------------------------------------------
 
-function _lorem {
-  readarray -t ents < "$__DIR/locale/$o_locale"/lorem.txt
-  declare -a words
-  i=0
-  while [ "$i" -lt "${1:-1}" ]; do
-    rand=$(perl -e "print int(rand(${#ents[@]}))")
-    words+=("${ents["$rand"]}")
-    ((i += 1))
-  done
-  printf "%s" "${words[*]}"
+function _random {
+    : <<'DOC'
+Internal helper to generate a random number up to max.
+Uses SRANDOM if available (Bash 5.1+), otherwise falls back to RANDOM.
+Sets _RET to the result.
+DOC
+    local max=$1
+    if (( max <= 0 )); then
+        _RET=0
+        return
+    fi
+    if [[ -n $SRANDOM ]]; then
+        _RET=$(( SRANDOM % max ))
+    else
+        _RET=$(( RANDOM % max ))
+    fi
 }
 
-function _firstname {
-  readarray -t ents < "$__DIR/locale/$o_locale"/first-name.txt
-  rand=$(perl -e "print int(rand(${#ents[@]}))")
-  echo "${ents["$rand"]}"
+function _random_range {
+    : <<'DOC'
+Internal helper to generate a random number within a range [min, max].
+Sets _RET to the result.
+DOC
+    local min=$1
+    local max=$2
+    _random $(( max - min + 1 ))
+    _RET=$(( _RET + min ))
 }
 
-function _lastname {
-  readarray -t ents < "$__DIR/locale/$o_locale"/last-name.txt
-  rand=$(perl -e "print int(rand(${#ents[@]}))")
-  echo "${ents["$rand"]}"
-}
-
-function _email {
-  readarray -t ents < "$__DIR/locale/$o_locale"/email.txt
-  rand=$(perl -e "print int(rand(${#ents[@]}))")
-  prefix=$(_firstname)$(_lastname)
-  echo "${prefix,,}@${ents["$rand"]}"
+function _pick {
+    : <<'DOC'
+Internal helper to pick a random line from a file.
+Uses readarray to avoid subshells.
+Sets _RET to the picked line.
+DOC
+    local file="$1"
+    if [[ ! -f "$file" ]]; then
+        _RET=""
+        return 1
+    fi
+    local lines
+    readarray -t lines < "$file"
+    local count=${#lines[@]}
+    if (( count == 0 )); then
+        _RET=""
+        return 1
+    fi
+    _random "$count"
+    _RET="${lines[_RET]}"
 }
 
 # -----------------------------------------------------------------------------
-# PUBLIC interfaces
+# CORE FEATURES
 # -----------------------------------------------------------------------------
 
-function lorem { # Loremipsum run command: lorem 5 - to get 5 words
-  local cnt
-  if [[ ${1:-1} =~ ^[0-9]+ ]]; then
-    cnt="${1:-1}"
-  fi
-
-  _lorem "$cnt"
+function firstname {
+    : <<'DOC'
+Generates a random first name.
+Usage: fake firstname [male|female]
+DOC
+    local gender="$1"
+    local file="$__DIR/locale/$o_locale/first-name.txt"
+    if [[ "$gender" == "male" && -f "$__DIR/locale/$o_locale/first-name-male.txt" ]]; then
+        file="$__DIR/locale/$o_locale/first-name-male.txt"
+    elif [[ "$gender" == "female" && -f "$__DIR/locale/$o_locale/first-name-female.txt" ]]; then
+        file="$__DIR/locale/$o_locale/first-name-female.txt"
+    fi
+    _pick "$file"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
 }
 
-function name { # Firstname + Lastname
-  echo "$(_firstname)" "$(_lastname)"
+function lastname {
+    : <<'DOC'
+Generates a random last name.
+Usage: fake lastname [male|female]
+DOC
+    local gender="$1"
+    local file="$__DIR/locale/$o_locale/last-name.txt"
+    if [[ "$gender" == "male" && -f "$__DIR/locale/$o_locale/last-name-male.txt" ]]; then
+        file="$__DIR/locale/$o_locale/last-name-male.txt"
+    elif [[ "$gender" == "female" && -f "$__DIR/locale/$o_locale/last-name-female.txt" ]]; then
+        file="$__DIR/locale/$o_locale/last-name-female.txt"
+    fi
+    _pick "$file"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
 }
 
-function firstname { # Firstname
-  _firstname
+function person {
+    : <<'DOC'
+Generates a random full name (firstname + lastname).
+Usage: fake person [male|female]
+DOC
+    local gender="$1"
+    local old_direct=$_DIRECT_CALL
+    _DIRECT_CALL=0
+    firstname "$gender"
+    local fn="$_RET"
+    lastname "$gender"
+    local ln="$_RET"
+    _RET="$fn $ln"
+    _DIRECT_CALL=$old_direct
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
 }
 
-function lastname { # Firstname
-  _lastname
+function country {
+    : <<'DOC'
+Generates a random country name.
+Usage: fake country
+DOC
+    _pick "$__DIR/locale/$o_locale/country.txt"
+    _RET="${_RET%%|*}"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
 }
 
-function email { # E-Mail address
-  _email
+function country_abbr {
+    : <<'DOC'
+Generates a random country abbreviation (ISO 3166-1 alpha-2).
+Usage: fake country_abbr
+DOC
+    _pick "$__DIR/locale/$o_locale/country.txt"
+    _RET="${_RET#*|}"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
 }
 
+function postcode {
+    : <<'DOC'
+Generates a random 5-digit postcode.
+Usage: fake postcode
+DOC
+    local pattern="#####"
+    local result=""
+    local i char
+    for (( i=0; i<${#pattern}; i++ )); do
+        char="${pattern:i:1}"
+        if [[ "$char" == "#" ]]; then
+            _random 10
+            result+="$_RET"
+        else
+            result+="$char"
+        fi
+    done
+    _RET="$result"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function city {
+    : <<'DOC'
+Generates a random city name.
+Usage: fake city
+DOC
+    _pick "$__DIR/locale/$o_locale/city.txt"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function street_name {
+    : <<'DOC'
+Generates a random street name.
+Usage: fake street_name
+DOC
+    _pick "$__DIR/locale/$o_locale/street-name.txt"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function number {
+    : <<'DOC'
+Generates a random number within a range.
+Usage: fake number [min] [max]
+Defaults: min=1, max=9999
+DOC
+    local min="${1:-1}"
+    local max="${2:-9999}"
+    _random_range "$min" "$max"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function job_title {
+    : <<'DOC'
+Generates a random job title.
+Usage: fake job_title
+DOC
+    _pick "$__DIR/locale/$o_locale/job-title.txt"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function email {
+    : <<'DOC'
+Generates a random e-mail address.
+Usage: fake email [male|female]
+DOC
+    local gender="$1"
+    local old_direct=$_DIRECT_CALL
+    _DIRECT_CALL=0
+    firstname "$gender"
+    local fn="${_RET,,}"
+    lastname "$gender"
+    local ln="${_RET,,}"
+    _pick "$__DIR/locale/$o_locale/email.txt"
+    local dom="$_RET"
+    _RET="${fn}.${ln}@${dom}"
+    _DIRECT_CALL=$old_direct
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function phone_number {
+    : <<'DOC'
+Generates a random phone number in +## ### ### ### format.
+Usage: fake phone_number
+DOC
+    local pattern="+## ### ### ###"
+    local result=""
+    local i char
+    for (( i=0; i<${#pattern}; i++ )); do
+        char="${pattern:i:1}"
+        if [[ "$char" == "#" ]]; then
+            _random 10
+            result+="$_RET"
+        else
+            result+="$char"
+        fi
+    done
+    _RET="$result"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function company {
+    : <<'DOC'
+Generates a random company name.
+Usage: fake company
+DOC
+    local old_direct=$_DIRECT_CALL
+    _DIRECT_CALL=0
+    lastname
+    local name="$_RET"
+    _pick "$__DIR/locale/$o_locale/company-suffix.txt"
+    _RET="$name $_RET"
+    _DIRECT_CALL=$old_direct
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function date {
+    : <<'DOC'
+Generates a random date in YYYY-MM-DD format.
+Usage: fake date [before|after]
+DOC
+    local opt="$1"
+    local year month day
+    if [[ "$opt" == "after" ]]; then
+        _random_range 2026 2030
+    elif [[ "$opt" == "before" ]]; then
+        _random_range 2010 2024
+    else
+        _random_range 2000 2025
+    fi
+    year=$_RET
+    _random_range 1 12; printf -v month "%02d" "$_RET"
+    _random_range 1 28; printf -v day "%02d" "$_RET"
+    _RET="$year-$month-$day"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function time {
+    : <<'DOC'
+Generates a random time in HH:MM:SS format.
+Usage: fake time
+DOC
+    local hour minute second
+    _random_range 0 23; printf -v hour "%02d" "$_RET"
+    _random_range 0 59; printf -v minute "%02d" "$_RET"
+    _random_range 0 59; printf -v second "%02d" "$_RET"
+    _RET="$hour:$minute:$second"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function url {
+    : <<'DOC'
+Generates a random URL.
+Usage: fake url
+DOC
+    local old_direct=$_DIRECT_CALL
+    _DIRECT_CALL=0
+    company
+    local comp="${_RET// /}"
+    comp="${comp,,}"
+    _pick "$__DIR/locale/$o_locale/email.txt"
+    local dom="$_RET"
+    _RET="https://www.${comp}.${dom}"
+    _DIRECT_CALL=$old_direct
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function uuid {
+    : <<'DOC'
+Generates a random UUID v4.
+Usage: fake uuid
+DOC
+    local i char
+    local res=""
+    for ((i=0; i<32; i++)); do
+        _random 16
+        printf -v char "%x" "$_RET"
+        res+="$char"
+    done
+    res="${res:0:12}4${res:13}"
+    _random 4
+    local y_opts=("8" "9" "a" "b")
+    res="${res:0:16}${y_opts[_RET]}${res:17}"
+    _RET="${res:0:8}-${res:8:4}-${res:12:4}-${res:16:4}-${res:20:12}"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+function lorem {
+    : <<'DOC'
+Generates random words (lorem ipsum).
+Usage: fake lorem [count]
+DOC
+    local cnt="${1:-1}"
+    local ents
+    readarray -t ents < "$__DIR/locale/$o_locale/lorem.txt"
+    local count=${#ents[@]}
+    local words=()
+    local i r
+    for (( i=0; i<cnt; i++ )); do
+        _random "$count"
+        words+=("${ents[_RET]}")
+    done
+    _RET="${words[*]}"
+    [[ $_DIRECT_CALL -eq 1 ]] && printf "%s\n" "$_RET"
+}
+
+# -----------------------------------------------------------------------------
+# ALIASES / OLD COMPAT
+# -----------------------------------------------------------------------------
+
+function name {
+    : <<'DOC'
+Alias for person.
+Usage: fake name [male|female]
+DOC
+    person "$@"
+}
+
+# -----------------------------------------------------------------------------
+# SYSTEM
 # -----------------------------------------------------------------------------
 
 function _parseOptions {
-  while [[ $# -ge 1 ]]; do
-    case $1 in
-
-      --locale)
-        shift
-        o_locale=$1
-        shift
-        continue
-        ;;
-
-    esac
-
-    if [[ $# -gt 0 ]]; then
-      shift
-    fi
-  done
+    : <<'DOC'
+Internal helper to parse command line options.
+Sets o_locale and _ARGS.
+DOC
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --locale)
+                o_locale="$2"
+                shift 2
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
+    _ARGS=("$@")
 }
 
-function help { # Display this helpful help information
-  local functions
-  functions=$(grep -E "^function [^_]*?$" "$0" | sed -E "s/ *{ *# */#/g" | column -t -s '#' | sed -E "s/^function /   /g" | sort)
-  echo "$__NAME v $__VERSION"
-  echo "Usage: $__FILE <task> [args]"
-  echo ""
-  echo "Tasks:"
-  echo "$functions"
-  echo ""
-  echo "Options:"
-  echo "   --locale     en"
-  echo ""
+function help {
+    : <<'DOC'
+Displays help information.
+Hardcoded for performance and avoiding self-parsing forks.
+DOC
+    cat <<EOF
+$__NAME v $__VERSION
+Usage: $__FILE [--locale <lang>] <task> [args]
+
+Tasks:
+   firstname       Generates a random first name (male, female)
+   lastname        Generates a random last name (male, female)
+   person          Generates a full name (alias: name)
+   country         Generates a random country name
+   country_abbr    Generates a random country abbreviation
+   city            Generates a random city name
+   street_name     Generates a random street name
+   number          Generates a random number (min, max)
+   postcode        Generates a random 5-digit postcode
+   job_title       Generates a random job title
+   email           Generates a random e-mail address
+   phone_number    Generates a random phone number
+   company         Generates a random company name
+   url             Generates a random URL
+   uuid            Generates a random UUID v4
+   date            Generates a random date (before, after)
+   time            Generates a random time
+   lorem           Generates random lorem ipsum words
+   help            Displays this help information
+
+Options:
+   --locale <lang> Set the locale (default: en)
+
+Example:
+   $ ./fake person --locale pl
+   $ ./fake uuid
+EOF
 }
+
+# -----------------------------------------------------------------------------
+# MAIN
+# -----------------------------------------------------------------------------
 
 _parseOptions "$@"
+set -- "${_ARGS[@]}"
 
-"${@:-help}"
+cmd="${1:-help}"
+if [[ "$(type -t "$cmd")" == "function" && ! "$cmd" =~ ^_ ]]; then
+    shift
+    "$cmd" "$@"
+else
+    help
+fi

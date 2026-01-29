@@ -1,0 +1,193 @@
+Afganistan|AF
+Albania|AL
+Algieria|DZ
+Andora|AD
+Angola|AO
+Antigua i Barbuda|AG
+Argentyna|AR
+Armenia|AM
+Australia|AU
+Austria|AT
+Azerbejdżan|AZ
+Bahamy|BS
+Bahrajn|BH
+Bangladesz|BD
+Barbados|BB
+Białoruś|BY
+Belgia|BE
+Belize|BZ
+Benin|BJ
+Bhutan|BT
+Boliwia|BO
+Bośnia i Hercegowina|BA
+Botswana|BW
+Brazylia|BR
+Brunei|BN
+Bułgaria|BG
+Burkina Faso|BF
+Burundi|BI
+Cabo Verde|CV
+Kambodża|KH
+Kamerun|CM
+Kanada|CA
+Republika Środkowoafrykańska|CF
+Czad|TD
+Chile|CL
+Chiny|CN
+Kolumbia|CO
+Komory|KM
+Kongo|CG
+Kostaryka|CR
+Chorwacja|HR
+Kuba|CU
+Cypr|CY
+Czechy|CZ
+Dania|DK
+Dżibuti|DJ
+Dominika|DM
+Dominikana|DO
+Ekwador|EC
+Egipt|EG
+Salwador|SV
+Gwinea Równikowa|GQ
+Erytrea|ER
+Estonia|EE
+Eswatini|SZ
+Etiopia|ET
+Fidżi|FJ
+Finlandia|FI
+Francja|FR
+Gabon|GA
+Gambia|GM
+Gruzja|GE
+Niemcy|DE
+Ghana|GH
+Grecja|GR
+Grenada|GD
+Gwatemala|GT
+Gwinea|GN
+Gwinea Bissau|GW
+Gujana|GY
+Haiti|HT
+Honduras|HN
+Węgry|HU
+Islandia|IS
+Indie|IN
+Indonezja|ID
+Iran|IR
+Irak|IQ
+Irlandia|IE
+Izrael|IL
+Włochy|IT
+Jamajka|JM
+Japonia|JP
+Jordania|JO
+Kazachstan|KZ
+Kenia|KE
+Kiribati|KI
+Korea Północna|KP
+Korea Południowa|KR
+Kuwejt|KW
+Kirgistan|KG
+Laos|LA
+Łotwa|LV
+Liban|LB
+Lesotho|LS
+Liberia|LR
+Libia|LY
+Liechtenstein|LI
+Litwa|LT
+Luksemburg|LU
+Madagaskar|MG
+Malawi|MW
+Malezja|MY
+Malediwy|MV
+Mali|ML
+Malta|MT
+Wyspy Marshalla|MH
+Mauretania|MR
+Mauritius|MU
+Meksyk|MX
+Mikronezja|FM
+Mołdawia|MD
+Monako|MC
+Mongolia|MN
+Czarnogóra|ME
+Maroko|MA
+Mozambik|MZ
+Mjanma|MM
+Namibia|NA
+Nauru|NR
+Nepal|NP
+Holandia|NL
+Nowa Zelandia|NZ
+Nikaragua|NI
+Niger|NE
+Nigeria|NG
+Macedonia Północna|MK
+Norwegia|NO
+Oman|OM
+Pakistan|PK
+Palau|PW
+Panama|PA
+Papua-Nowa Gwinea|PG
+Paragwaj|PY
+Peru|PE
+Filipiny|PH
+Polska|PL
+Portugalia|PT
+Katar|QA
+Rumunia|RO
+Rosja|RU
+Rwanda|RW
+Saint Kitts i Nevis|KN
+Saint Lucia|LC
+Saint Vincent i Grenadyny|VC
+Samoa|WS
+San Marino|SM
+Wyspy Świętego Tomasza i Książęca|ST
+Arabia Saudyjska|SA
+Senegal|SN
+Serbia|RS
+Seszele|SC
+Sierra Leone|SL
+Singapur|SG
+Słowacja|SK
+Słowenia|SI
+Wyspy Salomona|SB
+Somalia|SO
+RPA|ZA
+Sudan Południowy|SS
+Hiszpania|ES
+Sri Lanka|LK
+Sudan|SD
+Surinam|SR
+Szwecja|SE
+Szwajcaria|CH
+Syria|SY
+Tajwan|TW
+Tadżykistan|TJ
+Tanzania|TZ
+Tajlandia|TH
+Timor Wschodni|TL
+Togo|TG
+Tonga|TO
+Trynidad i Tobago|TT
+Tunezja|TN
+Turcja|TR
+Turkmenistan|TM
+Tuvalu|TV
+Uganda|UG
+Ukraina|UA
+ZEA|AE
+Wielka Brytania|GB
+USA|US
+Urugwaj|UY
+Uzbekistan|UZ
+Vanuatu|VU
+Watykan|VA
+Wenezuela|VE
+Wietnam|VN
+Jemen|YE
+Zambia|ZM
+Zimbabwe|ZW
