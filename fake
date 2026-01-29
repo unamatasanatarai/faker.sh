@@ -16,51 +16,6 @@ o_locale="en"
 o_count=1
 o_seed=""
 
-# Internal variables
-_RET=""
-_DIRECT_CALL=1
-
-# -----------------------------------------------------------------------------
-# LOAD LIBRARIES
-# -----------------------------------------------------------------------------
-
-for lib in "$__DIR/lib"/*.sh; do
-    source "$lib"
-done
-
-# -----------------------------------------------------------------------------
-# SYSTEM & ARG PARSING
-# -----------------------------------------------------------------------------
-
-function _parseOptions {
-    : <<'DOC'
-Internal helper to parse command line options.
-Supports --locale, --count, and --seed.
-DOC
-    local args=()
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            --locale)
-                o_locale="$2"
-                shift 2
-                ;;
-            --count)
-                o_count="$2"
-                shift 2
-                ;;
-            --seed)
-                o_seed="$2"
-                RANDOM="$2" # Seed the random number generator
-                shift 2
-                ;;
-            *)
-                args+=("$1")
-                shift
-                ;;
-        esac
-    done
-    _ARGS=("${args[@]}")
-}
 
 function help {
     : <<'DOC'
@@ -106,8 +61,25 @@ EOF
 # MAIN
 # -----------------------------------------------------------------------------
 
-_parseOptions "$@"
-set -- "${_ARGS[@]}"
+_RET=""
+_DIRECT_CALL=1
+
+# Load libraries
+for lib in "$__DIR/lib"/*.sh; do
+    source "$lib"
+done
+
+# Parse options
+_args=()
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --locale) o_locale="$2"; shift 2 ;;
+        --count)  o_count="$2";  shift 2 ;;
+        --seed)   o_seed="$2";   RANDOM="$2"; shift 2 ;;
+        *)        _args+=("$1"); shift ;;
+    esac
+done
+set -- "${_args[@]}"
 
 cmd="${1:-help}"
 
